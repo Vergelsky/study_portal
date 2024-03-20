@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'users',
+    'auditorium',
 ]
 
 MEDIA_ROOT = BASE_DIR / 'media'
