@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'users',
     'auditorium',
+    'django_filters',
 ]
 
 MEDIA_ROOT = BASE_DIR / 'media'

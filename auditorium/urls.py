@@ -3,8 +3,7 @@ from rest_framework.routers import DefaultRouter
 
 from auditorium.apps import AuditoriumConfig
 from auditorium.views import LessonCreateAPIView, LessonListAPIView, LessonRetrieveAPIView, LessonUpdateAPIView, \
-    LessonDestroyAPIView, CourseViewSet
-
+    LessonDestroyAPIView, CourseViewSet, PaymentsListAPIView
 
 app_name = AuditoriumConfig.name
 
@@ -18,4 +17,7 @@ urlpatterns = [
     path('lesson/<int:pk>', LessonRetrieveAPIView.as_view(), name='lesson-get '),
     path('lesson/update/<int:pk>/', LessonUpdateAPIView.as_view(), name='lesson-update'),
     path('lesson/delete/<int:pk>/', LessonDestroyAPIView.as_view(), name='lesson-delete'),
+
+    #payments
+    path('payments/', PaymentsListAPIView.as_view(), name='payments-list'),
 ] + router.urls
