@@ -1,0 +1,59 @@
+[
+  {
+    "model": "auditorium.payments",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "date": "2024-03-26T11:09:35.179Z",
+      "course": 7,
+      "lesson": null,
+      "amount": 100.1,
+      "field": "cash"
+    }
+  },
+    {
+    "model": "auditorium.payments",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "date": "2024-03-26T11:09:36.179Z",
+      "course": 8,
+      "lesson": null,
+      "amount": 100.2,
+      "field": "cash"
+    }
+  },  {
+    "model": "auditorium.payments",
+    "pk": 3,
+    "fields": {
+      "user": 1,
+      "date": "2024-03-26T11:09:37.179Z",
+      "course": 9,
+      "lesson": null,
+      "amount": 100.3,
+      "field": "cash"
+    }
+  },  {
+    "model": "auditorium.payments",
+    "pk": 4,
+    "fields": {
+      "user": 1,
+      "date": "2024-03-26T11:09:38.179Z",
+      "course": 10,
+      "lesson": null,
+      "amount": 100.4,
+      "field": "cash"
+    }
+  },  {
+    "model": "auditorium.payments",
+    "pk": 5,
+    "fields": {
+      "user": 1,
+      "date": "2024-03-26T11:09:39.179Z",
+      "course": null,
+      "lesson": 15,
+      "amount": 100.5,
+      "field": "card"
+    }
+  }
+]
