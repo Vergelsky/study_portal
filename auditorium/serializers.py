@@ -20,7 +20,7 @@ class CourseSerializer(serializers.ModelSerializer):
         return instance.lesson_set.all().count()
 
     def create(self, validated_data):
-        lessons = validated_data.pop('lesson')
+        lessons = validated_data.pop('lesson_set')
 
         course_item = Course.objects.create(**validated_data)
 
