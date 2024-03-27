@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from users.models import User
 
 
@@ -14,7 +13,6 @@ class UserCreateSerializer(serializers.ModelSerializer):
         user.set_password(p)
         user.save()
         return user
-
 
 
 class UserSerializer(serializers.ModelSerializer):

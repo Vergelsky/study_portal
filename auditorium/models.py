@@ -11,6 +11,7 @@ class Course(models.Model):
     def __str__(self):
         return self.name
 
+
 class Lesson(models.Model):
     name = models.CharField(max_length=120, verbose_name='Название')
     description = models.CharField(max_length=600, verbose_name='Описание')
@@ -25,8 +26,8 @@ class Lesson(models.Model):
 
 class Payments(models.Model):
     PAYMENT_METHODS = (
-        ('cash','Cash'),
-        ('card','Card')
+        ('cash', 'Cash'),
+        ('card', 'Card')
     )
     user = models.ForeignKey(User, models.CASCADE, verbose_name='пользователь')
     date = models.DateTimeField(auto_now=True, verbose_name='дата оплаты')

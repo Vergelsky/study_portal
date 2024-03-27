@@ -16,7 +16,6 @@ class UserListAPIView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
 
 
-
 class UserRetrieveAPIView(generics.RetrieveAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
@@ -29,8 +28,6 @@ class UserUpdateAPIView(generics.UpdateAPIView):
     permission_classes = [IsAuthenticated]
 
 
-
 class UserDestroyAPIView(generics.DestroyAPIView):
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
-

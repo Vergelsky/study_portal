@@ -12,6 +12,7 @@ class LessonSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     lessons_qty = serializers.SerializerMethodField()
     lesson_set = LessonSerializer(many=True)
+
     class Meta:
         model = Course
         fields = '__all__'
