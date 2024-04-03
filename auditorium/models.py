@@ -35,3 +35,8 @@ class Payments(models.Model):
     lesson = models.ForeignKey(Lesson, models.CASCADE, verbose_name='оплаченный урок', **NULLABLE)
     amount = models.FloatField(default=0, verbose_name='сумма оплаты')
     field = models.TextField(choices=PAYMENT_METHODS, verbose_name='способ оплаты')
+
+
+class Subscribe(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Подписчик')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='курс')
