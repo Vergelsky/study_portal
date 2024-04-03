@@ -13,5 +13,3 @@ class CorrectLinkValidator:
             if tmp_val:
                 if 'http' in tmp_val and not 'youtube.com' in tmp_val:
                     raise ValidationError("Ссылки на ресурсы кроме youtube запрещены")
-
-

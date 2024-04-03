@@ -1,10 +1,12 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics
 from rest_framework.filters import OrderingFilter
+from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.response import Response
 
-from auditorium.models import Course, Lesson, Payments
-from auditorium.serializers import CourseSerializer, LessonSerializer, PaymentsSerializer
+from auditorium.models import Course, Lesson, Payments, Subscribe
+from auditorium.serializers import CourseSerializer, LessonSerializer, PaymentsSerializer, SubscribeSerializer
 from users.permissions import IsModerator, IsOwner
 
 
@@ -68,3 +70,22 @@ class PaymentsListAPIView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ('lesson', 'course', 'field')
     ordering_fields = ('date',)
+
+
+class SubscribeAPIView(generics.CreateAPIView):
+    serializer_class = SubscribeSerializer
+
+    def post(self, *args, **kwargs):
+        user = self.request.user
+        course_id = self.request.data.get('course')
+        course_item = get_object_or_404(Course, pk=course_id)
+        subs_item = Subscribe.objects.filter(user=user, course=course_item)
+
+        if subs_item.exists():
+            subs_item.delete()
+            message = 'подписка удалена'
+        else:
+            Subscribe.objects.create(user=user, course=course_item)
+            message = 'подписка добавлена'
+
+        return Response({'message': message})

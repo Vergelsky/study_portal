@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from auditorium.models import Lesson, Course, Payments
+from auditorium.models import Lesson, Course, Payments, Subscribe
 from auditorium.validators import CorrectLinkValidator
 
 
@@ -13,6 +13,7 @@ class LessonSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     lessons_qty = serializers.SerializerMethodField()
+    is_user_subscribed = serializers.SerializerMethodField()
     lesson_set = LessonSerializer(many=True)
 
     class Meta:
@@ -21,7 +22,12 @@ class CourseSerializer(serializers.ModelSerializer):
         validators = [CorrectLinkValidator(fields=['description'])]
 
     def get_lessons_qty(self, instance):
+        print(type(instance))
         return instance.lesson_set.all().count()
+
+    def get_is_user_subscribed(self, instance):
+        user = self.context.get('request').user
+        return instance.subscribe_set.filter(user=user).exists()
 
     def create(self, validated_data):
         lessons = validated_data.pop('lesson_set')
@@ -38,3 +44,9 @@ class PaymentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payments
         fields = '__all__'
+
+
+class SubscribeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subscribe
+        feilds = '__all__'
