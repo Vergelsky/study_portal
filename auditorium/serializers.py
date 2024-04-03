@@ -1,12 +1,14 @@
 from rest_framework import serializers
 
 from auditorium.models import Lesson, Course, Payments
+from auditorium.validators import CorrectLinkValidator
 
 
 class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
         fields = '__all__'
+        validators = [CorrectLinkValidator(fields=['video', 'description'])]
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -16,6 +18,7 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
+        validators = [CorrectLinkValidator(fields=['description'])]
 
     def get_lessons_qty(self, instance):
         return instance.lesson_set.all().count()
