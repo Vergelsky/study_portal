@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
 from auditorium.models import Course, Lesson, Payments, Subscribe
+from auditorium.pagination import PageNumberPagination
 from auditorium.serializers import CourseSerializer, LessonSerializer, PaymentsSerializer, SubscribeSerializer
 from users.permissions import IsModerator, IsOwner
 
@@ -15,6 +16,8 @@ from users.permissions import IsModerator, IsOwner
 class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
+    pagination_class = PageNumberPagination
+
 
     def get_permissions(self):
         if self.action in ('create',):
@@ -46,6 +49,7 @@ class LessonCreateAPIView(generics.CreateAPIView):
 class LessonListAPIView(generics.ListAPIView):
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
+    pagination_class = PageNumberPagination
 
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):
