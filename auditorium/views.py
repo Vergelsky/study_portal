@@ -21,16 +21,12 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.action in ('create',):
-            print('c')
             self.permission_classes = [IsAuthenticated, ~IsModerator]
         elif self.action in ('list', 'retrieve'):
-            print('lr')
             self.permission_classes = [IsAuthenticated]
         elif self.action in ('update', 'partial_update'):
-            print('up')
-            self.permission_classes = [IsOwner, IsModerator]
+            self.permission_classes = [IsOwner or IsModerator]
         elif self.action in ('destroy',):
-            print('d')
             self.permission_classes = [IsOwner]
         return [permission() for permission in self.permission_classes]
 
@@ -60,12 +56,12 @@ class LessonRetrieveAPIView(generics.RetrieveAPIView):
 class LessonUpdateAPIView(generics.UpdateAPIView):
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
-    permission_classes = [IsOwner, IsModerator]
+    permission_classes = [IsOwner or IsModerator]
 
 
 class LessonDestroyAPIView(generics.DestroyAPIView):
     queryset = Lesson.objects.all()
-    permission_classes = [IsOwner, IsAdminUser]
+    permission_classes = [IsOwner or IsAdminUser]
 
 
 class PaymentsListAPIView(generics.ListAPIView):
@@ -83,7 +79,7 @@ class SubscribeAPIView(generics.CreateAPIView):
         user = self.request.user
         course_id = self.request.data.get('course')
         course_item = get_object_or_404(Course, pk=course_id)
-        subs_item = Subscribe.objects.filter(user=user, course=course_item)
+        subs_item = Subscribe.objects.filter(user=user, course=course_id)
 
         if subs_item.exists():
             subs_item.delete()

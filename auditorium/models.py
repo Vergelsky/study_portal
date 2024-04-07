@@ -17,7 +17,7 @@ class Lesson(models.Model):
     description = models.CharField(max_length=600, verbose_name='Описание')
     image = models.ImageField(upload_to='images/', verbose_name='Превью', **NULLABLE)
     video = models.URLField(verbose_name='Видео', **NULLABLE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', **NULLABLE)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор', **NULLABLE)
 
     def __str__(self):

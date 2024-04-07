@@ -22,7 +22,6 @@ class CourseSerializer(serializers.ModelSerializer):
         validators = [CorrectLinkValidator(fields=['description'])]
 
     def get_lessons_qty(self, instance):
-        print(type(instance))
         return instance.lesson_set.all().count()
 
     def get_is_user_subscribed(self, instance):

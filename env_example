@@ -1,6 +1,6 @@
 DJANGO_SECRET_KEY = 'django-insecure-+ldkfvbalhue48ufdfov9d_+sdfjvw4+wi=22'
 
 DB_ENGINE = 'django.db.backends.postgresql'
-DB_NAME = 'db_drf'
+DB_NAME = 'hw_drf'
 DB_USER = 'postgres'
 BD_PASSWORD = '1234'
