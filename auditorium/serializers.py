@@ -48,4 +48,4 @@ class PaymentsSerializer(serializers.ModelSerializer):
 class SubscribeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subscribe
-        feilds = '__all__'
+        fields = '__all__'
