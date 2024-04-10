@@ -5,6 +5,7 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
+from auditorium import services
 from auditorium.models import Course, Lesson, Payments, Subscribe
 from auditorium.pagination import PageNumberPagination
 from auditorium.serializers import CourseSerializer, LessonSerializer, PaymentsSerializer, SubscribeSerializer
@@ -17,7 +18,6 @@ class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
     pagination_class = PageNumberPagination
-
 
     def get_permissions(self):
         if self.action in ('create',):
@@ -70,6 +70,24 @@ class PaymentsListAPIView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ('lesson', 'course', 'field')
     ordering_fields = ('date',)
+
+
+class PaymentsCreateAPIView(generics.CreateAPIView):
+    serializer_class = PaymentsSerializer
+
+    def perform_create(self, serializer):
+        course = self.request.data.get('course')
+        lesson = self.request.data.get('lesson')
+        if course:
+            obj = Course.objects.get(id=course)
+        elif lesson:
+            obj = Lesson.objects.get(id=lesson)
+        else:
+            raise Exception('нужен или курс или урок')
+        price = obj.price
+        user = self.request.user
+        link = services.create_stripe_link(obj)
+        serializer.save(stripe_link=link, amount=price, user=user)
 
 
 class SubscribeAPIView(generics.CreateAPIView):

@@ -7,6 +7,7 @@ class Course(models.Model):
     description = models.CharField(max_length=600, verbose_name='Описание')
     image = models.ImageField(upload_to='images/', verbose_name='Превью', **NULLABLE)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор', **NULLABLE)
+    price = models.IntegerField(verbose_name='Цена', **NULLABLE)
 
     def __str__(self):
         return self.name
@@ -19,6 +20,7 @@ class Lesson(models.Model):
     video = models.URLField(verbose_name='Видео', **NULLABLE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', **NULLABLE)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор', **NULLABLE)
+    price = models.IntegerField(verbose_name='Цена', **NULLABLE)
 
     def __str__(self):
         return self.name
@@ -35,6 +37,7 @@ class Payments(models.Model):
     lesson = models.ForeignKey(Lesson, models.CASCADE, verbose_name='оплаченный урок', **NULLABLE)
     amount = models.FloatField(default=0, verbose_name='сумма оплаты')
     field = models.TextField(choices=PAYMENT_METHODS, verbose_name='способ оплаты')
+    stripe_link = models.URLField(max_length=600, verbose_name='Ссылка на оплату', **NULLABLE)
 
 
 class Subscribe(models.Model):

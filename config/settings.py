@@ -75,6 +75,8 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=7),
 }
 
+STRIPE_API_KEY = os.getenv('STRIPE_API_TEST_KEY')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

@@ -4,3 +4,5 @@ DB_ENGINE = 'django.db.backends.postgresql'
 DB_NAME = 'hw_drf'
 DB_USER = 'postgres'
 BD_PASSWORD = '1234'
+
+STRIPE_API_TEST_KEY = 'sk_test_51P3bcKEmlx2eB6X8xg1bdFOvCsw'
