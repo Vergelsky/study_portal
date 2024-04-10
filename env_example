@@ -5,4 +5,4 @@ DB_NAME = 'hw_drf'
 DB_USER = 'postgres'
 BD_PASSWORD = '1234'
 
-STRIPE_API_TEST_KEY = ''
+STRIPE_API_TEST_KEY =
