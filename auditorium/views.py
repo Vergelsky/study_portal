@@ -9,6 +9,7 @@ from auditorium import services
 from auditorium.models import Course, Lesson, Payments, Subscribe
 from auditorium.pagination import PageNumberPagination
 from auditorium.serializers import CourseSerializer, LessonSerializer, PaymentsSerializer, SubscribeSerializer
+from auditorium.tasks import send_email_for_subscribers
 from users.permissions import IsModerator, IsOwner
 
 
@@ -32,6 +33,11 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        send_email_for_subscribers.delay(instance.id)
+        super().perform_update(serializer)
 
 
 class LessonCreateAPIView(generics.CreateAPIView):

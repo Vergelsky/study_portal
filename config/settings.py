@@ -46,7 +46,17 @@ INSTALLED_APPS = [
     'auditorium',
     'django_filters',
     'rest_framework_simplejwt',
+    'django_celery_beat',
 ]
+
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = True
+EMAIL_SSL_CERTFILE = None
+EMAIL_SSL_KEYFILE = None
 
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -132,6 +142,9 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
+# Часовой пояс для работы Celery
+CELERY_TIMEZONE = "UTC"
+
 USE_I18N = True
 
 USE_TZ = True
@@ -154,3 +167,14 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
+
+CELERY_BROKER_URL = 'CELERY_BROKER_URL'
+CELERY_RESULT_BACKEND = 'CELERY_RESULT_BACKEND'
+
+
+# Флаг отслеживания выполнения задач
+CELERY_TASK_TRACK_STARTED = True
+
+# Максимальное время на выполнение задачи
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
