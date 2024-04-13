@@ -172,9 +172,3 @@ CELERY_BROKER_URL = 'CELERY_BROKER_URL'
 CELERY_RESULT_BACKEND = 'CELERY_RESULT_BACKEND'
 
 
-# Флаг отслеживания выполнения задач
-CELERY_TASK_TRACK_STARTED = True
-
-# Максимальное время на выполнение задачи
-CELERY_TASK_TIME_LIMIT = 30 * 60
-
