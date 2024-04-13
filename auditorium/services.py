@@ -22,4 +22,3 @@ def create_stripe_link(product_object):
     )
 
     return link['url']
-
