@@ -1,10 +1,11 @@
 from datetime import datetime, timedelta
 
+import requests
 from celery import shared_task
 from django.core.mail import send_mail
 
 from auditorium.models import Course
-from config.settings import EMAIL_HOST_USER
+from config.settings import EMAIL_HOST_USER, BOT_TOKEN
 from users.models import User
 
 
@@ -21,8 +22,10 @@ def send_email_for_subscribers(instance):
         )
 
 
+
 @shared_task
 def deactivate_inactive_users():
+
     for user in User.objects.all():
         if user.is_staff:
             continue
@@ -32,3 +35,4 @@ def deactivate_inactive_users():
             for user1 in inactive_users:
                 user1.is_active = False
                 user1.save()
+

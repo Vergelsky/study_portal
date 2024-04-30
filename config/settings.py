@@ -110,10 +110,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('DB_ENGINE'),
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('BD_PASSWORD')
+        'ENGINE': 'django.db.backends.postgresql', # os.getenv('POSTGRES_ENGINE'),
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST':  os.getenv('POSTGRES_HOST'),
+        'PORT':  os.getenv('POSTGRES_PORT')
     }
 }
 
@@ -140,10 +142,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Bangkok'
 
 # Часовой пояс для работы Celery
-CELERY_TIMEZONE = "UTC"
+CELERY_TIMEZONE = "Asia/Bangkok"
 
 USE_I18N = True
 
@@ -177,3 +179,7 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': timedelta(seconds=10),  # Расписание выполнения задачи (например, каждые 10 минут)
     },
 }
+
+BOT_TOKEN = os.getenv('BOT_TOKEN')
+
+CELERY_BEAT_TZ = 'Asia/Bangkok'
